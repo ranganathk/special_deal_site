@@ -19,6 +19,10 @@ class Ticket < ActiveRecord::Base
 
   before_create :set_token_time
 
+  def activate!
+    CurrentTicket.fetch.set_ticket(self)
+  end
+
   private
     def set_token_time
       self.ticket_no = Ticket.count + 1

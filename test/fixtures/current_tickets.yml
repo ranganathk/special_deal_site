@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: current_tickets
+#
+#  id           :integer          not null, primary key
+#  ticket_id    :integer
+#  activated_at :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticket_id: 
+  activated_at: 2015-08-08 11:40:46
+
+two:
+  ticket_id: 
+  activated_at: 2015-08-08 11:40:46
