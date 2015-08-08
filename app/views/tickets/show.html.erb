@@ -14,3 +14,13 @@
     });
   </script>
 <% end %>
+
+<script type="text/javascript">
+  $(window).on('beforeunload', function() {
+    $.ajax({
+      url: '<%= ticket_path(@ticket) %>',
+      method: 'PUT',
+      data: {'closed' : true}
+    });
+  });
+</script>

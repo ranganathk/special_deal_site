@@ -32,6 +32,10 @@ class Ticket < ActiveRecord::Base
     self.save!
   end
 
+  def mark_waiting!(wting = true)
+    self.update_attribute(:waiting, wting)
+  end
+
   private
     def set_token_details
       return unless self.new_record?
