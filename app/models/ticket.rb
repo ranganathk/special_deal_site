@@ -20,9 +20,16 @@ class Ticket < ActiveRecord::Base
   validates :code, presence: true
 
   before_validation :set_token_details
+  after_create :set_current_if_none_current
 
   def activate!
     CurrentTicket.fetch.set_ticket(self)
+  end
+
+  def claim!
+    self.claimed = true
+    self.waiting = false
+    self.save!
   end
 
   private
@@ -30,5 +37,9 @@ class Ticket < ActiveRecord::Base
       return unless self.new_record?
       self.ticket_no = Ticket.count + 1
       self.code = RandomPasswordGenerator.generate(8, skip_symbols: true)
+    end
+
+    def set_current_if_none_current
+      return if CurrentTicket.fetch.ticket
     end
 end
