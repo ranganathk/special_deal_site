@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'waiting' => 'home#waiting', as: :waiting
   
   resources :users
   get 'home/welcome'

@@ -6,9 +6,9 @@ class HomeController < ApplicationController
     else
       @seconds_left = 0
     end
+    @ticket_no = User.count + 1
     @user = User.new
   end
 
-  def waiting
-  end
+  
 end
