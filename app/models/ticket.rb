@@ -9,6 +9,7 @@
 #  waiting    :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  code       :string
 #
 
 class Ticket < ActiveRecord::Base
@@ -16,15 +17,29 @@ class Ticket < ActiveRecord::Base
 
   validates :name, presence: true
   validates :email, presence: true, format: {with: /\A[a-zA-Z][\w\.\+-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]\z/}
+  validates :code, presence: true
 
-  before_create :set_token_time
+  before_validation :set_token_details
+  after_create :set_current_if_none_current
 
   def activate!
     CurrentTicket.fetch.set_ticket(self)
   end
 
+  def claim!
+    self.claimed = true
+    self.waiting = false
+    self.save!
+  end
+
   private
-    def set_token_time
+    def set_token_details
+      return unless self.new_record?
       self.ticket_no = Ticket.count + 1
+      self.code = RandomPasswordGenerator.generate(8, skip_symbols: true)
+    end
+
+    def set_current_if_none_current
+      return if CurrentTicket.fetch.ticket
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808061046) do
+ActiveRecord::Schema.define(version: 20150808121117) do
 
   create_table "current_tickets", force: :cascade do |t|
     t.integer  "ticket_id"
@@ -25,8 +25,10 @@ ActiveRecord::Schema.define(version: 20150808061046) do
     t.string   "email"
     t.integer  "ticket_no"
     t.boolean  "waiting",    default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "code"
+    t.boolean  "claimed",    default: false
   end
 
 end

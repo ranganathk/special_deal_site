@@ -9,12 +9,24 @@
 
 class CurrentTicket < ActiveRecord::Base
   # This is the number of seconds between two tickets activations
-  TICKET_INTERVAL = 60
+  TICKET_INTERVAL = 600
 
   belongs_to :ticket
 
   def self.fetch
     self.first
+  end
+
+  def self.claim
+    tkt = self.fetch.ticket
+    if tkt
+      puts "Claiming Ticket ##{tkt.ticket_no}"
+      tkt.claim!
+      next_tkt = Ticket.waiting.where('ticket_no > ?', tkt.ticket_no).first
+      self.fetch.set_ticket next_tkt
+    else
+      puts "No ticket in queue to claim"
+    end
   end
 
   def self.seconds_left
