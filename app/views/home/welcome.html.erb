@@ -10,7 +10,7 @@
       <% end %>
     </p>
     <div id="waiting-timer"></div>
-    <%= simple_form_for @user do |f| %>
+    <%= simple_form_for @ticket do |f| %>
       <%= f.input :name, label: false, placeholder: "Your Name.." %>
       <%= f.input :email, label: false, placeholder: "Your Email..." %>
       <%= f.submit "Take Ticket ##{@ticket_no}", class: "btn" %>
