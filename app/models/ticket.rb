@@ -1,16 +1,19 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: tickets
 #
 #  id         :integer          not null, primary key
 #  name       :string
 #  email      :string
+#  ticket_no  :integer
+#  waiting    :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  ticket_no  :integer
 #
 
 class Ticket < ActiveRecord::Base
+  scope :waiting, -> {where(waiting: true)}
+
   validates :name, presence: true
   validates :email, presence: true, format: {with: /\A[a-zA-Z][\w\.\+-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]\z/}
 

@@ -4,7 +4,7 @@ class CreateTickets < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.integer :ticket_no
-      t.boolean :waiting
+      t.boolean :waiting, default: true
 
       t.timestamps null: false
     end

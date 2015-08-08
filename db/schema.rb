@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20150808045601) do
     t.string   "name"
     t.string   "email"
     t.integer  "ticket_no"
-    t.boolean  "waiting"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "waiting",    default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end

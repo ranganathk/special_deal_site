@@ -1,19 +1,18 @@
 <div id="land">
   <div class="vcenter">
     <h1>Exlusive. Deals. Every. 60. Secconds.</h1>
-    <p>
-      <% if @seconds_left > 0 %>
-        You need to wait for <%= @seconds_left %> seconds. <br>
-        Join the Queue...
-      <% else %>
-        Yey! No waiting! Claim before someone pushes you into a queue!!
-      <% end %>
-    </p>
+    <% if @waiting_count > 0 %>
+      <h2><%= pluralize(@waiting_count, 'person') %> are in queue</h2>
+      <h2>Currently serving Ticket #<%= @current_ticket.ticket_no %></h2>
+    <% else %>
+      Yey! No waiting! Claim before someone pushes you into a queue!!
+    <% end %>
+    
     <div id="waiting-timer"></div>
-    <%= simple_form_for @ticket do |f| %>
+    <%= simple_form_for @new_ticket do |f| %>
       <%= f.input :name, label: false, placeholder: "Your Name.." %>
       <%= f.input :email, label: false, placeholder: "Your Email..." %>
-      <%= f.submit "Take Ticket ##{@ticket_no}", class: "btn" %>
+      <%= f.submit "Take Ticket ##{@new_ticket.ticket_no}", class: "btn" %>
     <% end %>
   </div>
 </div>
